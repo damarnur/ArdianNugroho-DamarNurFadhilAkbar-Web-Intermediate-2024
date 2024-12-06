@@ -1,157 +1,40 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
+import { Metadata } from 'next';
 import { searchMovies, getAllMovies } from '@/lib/api';
-import { Movie } from '@/types/movie';
-import { useTheme } from '@/context/theme-context';
+import MovieList from '../components/MovieList';
 
-export default function MoviesPage() {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState(1);
-  const [totalResults, setTotalResults] = useState(0);
-  const [loading, setLoading] = useState(false);
+export const metadata: Metadata = {
+  title: 'Movie Collection - Browse and Discover',
+  description: 'Explore our extensive collection of movies across various genres.',
+};
 
-  const searchParams = useSearchParams();
-  const query = searchParams.get('query') || '';
-  const { isDarkMode } = useTheme();
+export const revalidate = 3600; // Revalidate every hour
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      setLoading(true);
-      try {
-        let data;
-        if (query) {
-          data = await searchMovies(query, page);
-          setMovies(data.Search || []);
-          setTotalResults(parseInt(data.totalResults || '0'));
-        } else {
-          const response = await getAllMovies(page);
-          setMovies(response.movies);
-          setTotalResults(response.totalResults);
-        }
-      } catch (error) {
-        console.error('Error fetching movies:', error);
-        setMovies([]);
-        setTotalResults(0);
-      } finally {
-        setLoading(false);
-      }
-    };
+export default async function MoviesPage({
+  searchParams,
+}: {
+  searchParams: { query?: string; page?: string };
+}) {
+  const query = searchParams.query || '';
+  const page = parseInt(searchParams.page || '1', 10);
 
-    fetchMovies();
-  }, [page, query]);
+  let movies = [];
+  let totalResults = 0;
 
-  const totalPages = Math.ceil(totalResults / 10);
+  try {
+    if (query) {
+      const searchData = await searchMovies(query, page);
+      movies = searchData.Search || [];
+      totalResults = parseInt(searchData.totalResults || '0');
+    } else {
+      const response = await getAllMovies(page);
+      movies = response.movies;
+      totalResults = response.totalResults;
+    }
+  } catch (error) {
+    console.error('Error fetching movies:', error);
+  }
 
   return (
-    <div
-      className={`min-h-screen p-6 ${
-        isDarkMode ? 'bg-bg-dark text-text-primary' : 'bg-[#eeebe3] text-gray-800'
-      }`}
-    >
-      {loading ? (
-        <div className="flex justify-center items-center h-full">
-          <p>Loading movies...</p>
-        </div>
-      ) : (
-        <>
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-display">
-              {query ? `Search Results for "${query}"` : 'All Movies'}
-            </h1>
-          </div>
-
-          {movies.length > 0 ? (
-            <>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {movies.map((movie) => (
-                  <Link
-                    key={movie.imdbID}
-                    href={`/movies/${movie.imdbID}`}
-                    className="hover:scale-105 transition-transform"
-                  >
-                    <div
-                      className={`rounded-lg overflow-hidden shadow-lg ${
-                        isDarkMode ? 'bg-bg-light' : 'bg-white'
-                      }`}
-                    >
-                      <Image
-                        src={
-                          movie.Poster !== 'N/A' ? movie.Poster : '/placeholder-movie.jpg'
-                        }
-                        alt={movie.Title}
-                        width={300}
-                        height={300}
-                        className="w-full h-72 object-cover"
-                      />
-                      <div className="p-4">
-                        <h2 className="text-lg font-semibold truncate">{movie.Title}</h2>
-                        <p className="text-text-secondary">{movie.Year}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-
-              {/* Pagination Controls */}
-              <div className="flex justify-center items-center mt-8 space-x-2">
-                <button
-                  onClick={() => setPage(1)}
-                  disabled={page === 1}
-                  className={`px-3 py-2 rounded ${
-                    page === 1
-                      ? 'bg-gray-200 cursor-not-allowed'
-                      : `${isDarkMode ? 'bg-bg-light' : 'bg-gray-300'} hover:opacity-80`
-                  }`}
-                >
-                  First
-                </button>
-                <button
-                  onClick={() => setPage(page - 1)}
-                  disabled={page === 1}
-                  className={`px-3 py-2 rounded ${
-                    page === 1
-                      ? 'bg-gray-200 cursor-not-allowed'
-                      : `${isDarkMode ? 'bg-bg-light' : 'bg-gray-300'} hover:opacity-80`
-                  }`}
-                >
-                  Previous
-                </button>
-                <span className="px-4 py-2">
-                  Page {page} of {totalPages}
-                </span>
-                <button
-                  onClick={() => setPage(page + 1)}
-                  disabled={page === totalPages}
-                  className={`px-3 py-2 rounded ${
-                    page === totalPages
-                      ? 'bg-gray-200 cursor-not-allowed'
-                      : `${isDarkMode ? 'bg-bg-light' : 'bg-gray-300'} hover:opacity-80`
-                  }`}
-                >
-                  Next
-                </button>
-                <button
-                  onClick={() => setPage(totalPages)}
-                  disabled={page === totalPages}
-                  className={`px-3 py-2 rounded ${
-                    page === totalPages
-                      ? 'bg-gray-200 cursor-not-allowed'
-                      : `${isDarkMode ? 'bg-bg-light' : 'bg-gray-300'} hover:opacity-80`
-                  }`}
-                >
-                  Last
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className="text-center text-xl">No movies found</div>
-          )}
-        </>
-      )}
-    </div>
+    <MovieList initialMovies={movies} initialPage={page} totalResults={totalResults} />
   );
 }

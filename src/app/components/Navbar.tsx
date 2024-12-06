@@ -20,11 +20,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`p-4 shadow-md ${isDarkMode ? 'bg-bg-light' : 'bg-white'}`}>
+    <nav
+      className={`p-4 shadow-md ${isDarkMode ? 'bg-bg-light' : 'bg-white'} transition-colors duration-300`}
+    >
       <div className="container mx-auto flex justify-between items-center">
         <Link
           href="/"
-          className={`text-2xl font-display font-bold ${isDarkMode ? 'text-accent-blue' : 'text-blue-600'}`}
+          className={`text-2xl font-display font-bold ${isDarkMode ? 'text-accent-blue' : 'text-blue-600'} transition-colors duration-300`}
         >
           MovieSearch
         </Link>
@@ -32,13 +34,13 @@ const Navbar = () => {
           <div className="space-x-4 mr-4">
             <Link
               href="/"
-              className={`hover:text-accent-blue transition ${isDarkMode ? 'text-text-primary' : 'text-gray-800'}`}
+              className={`hover:text-accent-blue transition ${isDarkMode ? 'text-text-primary' : 'text-gray-800'} transition-colors duration-300`}
             >
               Home
             </Link>
             <Link
               href="/movies"
-              className={`hover:text-accent-blue transition ${isDarkMode ? 'text-text-primary' : 'text-gray-800'}`}
+              className={`hover:text-accent-blue transition ${isDarkMode ? 'text-text-primary' : 'text-gray-800'} transition-colors duration-300`}
             >
               Movies
             </Link>
@@ -50,19 +52,19 @@ const Navbar = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search movies..."
               className={`mr-2 p-2 rounded focus:outline-none focus:ring-2 focus:ring-accent-blue 
-                ${isDarkMode ? 'bg-bg-dark text-text-primary' : 'bg-gray-200 text-gray-800'}`}
+                ${isDarkMode ? 'bg-bg-dark text-text-primary' : 'bg-gray-200 text-gray-800'} transition-colors duration-300`}
             />
             <button
               type="submit"
               className={`px-4 py-2 rounded hover:opacity-80 transition 
-                ${isDarkMode ? 'bg-accent-blue text-white' : 'bg-blue-500 text-white'}`}
+                ${isDarkMode ? 'bg-accent-blue text-white' : 'bg-blue-500 text-white'} transition-colors duration-300`}
             >
               Search
             </button>
           </form>
           <button
             onClick={toggleTheme}
-            className={`p-2 rounded-full ${isDarkMode ? 'bg-bg-dark' : 'bg-gray-200'}`}
+            className={`p-2 rounded-full ${isDarkMode ? 'bg-bg-dark' : 'bg-gray-200'} transition-colors duration-300`}
           >
             {isDarkMode ? (
               <SunIcon className="text-text-primary" />
