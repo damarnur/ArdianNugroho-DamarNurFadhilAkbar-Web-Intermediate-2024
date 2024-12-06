@@ -1,6 +1,7 @@
+// src/app/movies/page.tsx
 import { Metadata } from 'next';
 import { searchMovies, getAllMovies } from '@/lib/api';
-import MovieList from '../components/MovieList';
+import MovieList from '@/app/components/MovieList';
 
 export const metadata: Metadata = {
   title: 'Movie Collection - Browse and Discover',
@@ -14,8 +15,10 @@ export default async function MoviesPage({
 }: {
   searchParams: { query?: string; page?: string };
 }) {
-  const query = searchParams.query || '';
-  const page = parseInt(searchParams.page || '1', 10);
+  // Await searchParams explicitly to avoid accessing it synchronously
+  const awaitedParams = await searchParams;
+  const query = awaitedParams?.query || '';
+  const page = parseInt(awaitedParams?.page || '1', 10);
 
   let movies = [];
   let totalResults = 0;
