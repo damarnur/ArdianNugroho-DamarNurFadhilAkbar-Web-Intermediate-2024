@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { searchMovies } from '@/lib/api';
 import { Movie } from '@/types/movie';
+import { useTheme } from '@/context/theme-context';
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -13,6 +14,7 @@ export default function MoviesPage() {
   const [totalResults, setTotalResults] = useState(0);
   const searchParams = useSearchParams();
   const query = searchParams.get('query') || '';
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -30,10 +32,10 @@ export default function MoviesPage() {
     }
   }, [query, page]);
 
-  const totalPages = Math.ceil(totalResults / 20);
-
   return (
-    <div className="container mx-auto p-6">
+    <div
+      className={`min-h-screen p-6 ${isDarkMode ? 'bg-bg-dark text-text-primary' : 'bg-[#eeebe3] text-gray-800'}`}
+    >
       <h1 className="text-3xl font-display mb-6">
         Search Results for &quot;{query}&quot;
       </h1>
@@ -44,14 +46,15 @@ export default function MoviesPage() {
             href={`/movies/${movie.imdbID}`}
             className="hover:scale-105 transition-transform"
           >
-            <div className="bg-bg-light rounded-lg overflow-hidden shadow-lg">
+            <div
+              className={`rounded-lg overflow-hidden shadow-lg ${isDarkMode ? 'bg-bg-light' : 'bg-white'}`}
+            >
               <Image
-                priority={true}
                 src={movie.Poster !== 'N/A' ? movie.Poster : '/placeholder-movie.jpg'}
                 alt={movie.Title}
                 width={300}
                 height={300}
-                className="w-96 h-96"
+                className="w-full h-72 object-cover"
               />
               <div className="p-4">
                 <h2 className="text-lg font-semibold truncate">{movie.Title}</h2>
@@ -61,31 +64,25 @@ export default function MoviesPage() {
           </Link>
         ))}
       </div>
-
       {/* Pagination */}
-      {totalResults > 0 && (
-        <div className="flex justify-center items-center mt-8 space-x-4">
-          {page > 1 && (
-            <button
-              onClick={() => setPage(page - 1)}
-              className="bg-bg-light px-4 py-2 rounded hover:bg-accent-blue"
-            >
-              Previous
-            </button>
-          )}
-          <span className="text-lg">
-            Page {page} of {totalPages}
-          </span>
-          {page < totalPages && (
-            <button
-              onClick={() => setPage(page + 1)}
-              className="bg-bg-light px-4 py-2 rounded hover:bg-accent-blue"
-            >
-              Next
-            </button>
-          )}
-        </div>
-      )}
+      <div className="flex justify-center mt-8 space-x-4">
+        {page > 1 && (
+          <button
+            onClick={() => setPage(page - 1)}
+            className={`px-4 py-2 rounded ${isDarkMode ? 'bg-bg-light' : 'bg-gray-300'} hover:opacity-80`}
+          >
+            Previous
+          </button>
+        )}
+        {page * 20 < totalResults && (
+          <button
+            onClick={() => setPage(page + 1)}
+            className={`px-4 py-2 rounded ${isDarkMode ? 'bg-bg-light' : 'bg-gray-300'} hover:opacity-80`}
+          >
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 }
