@@ -3,7 +3,7 @@ import { getMovieById } from '@/lib/api';
 import MovieDetailContent from '@/app/components/MovieDetailContent';
 
 type MovieDetailPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateStaticParams() {
@@ -16,7 +16,8 @@ export async function generateMetadata({
   params,
 }: MovieDetailPageProps): Promise<Metadata> {
   try {
-    const movie = await getMovieById(params.id);
+    const resolvedParams = await params;
+    const movie = await getMovieById(resolvedParams.id);
     return {
       title: `${movie.Title} (${movie.Year}) - Movie Details`,
       description: `Movie details for ${movie.Title}, directed by ${movie.Director}`,
@@ -34,7 +35,8 @@ export async function generateMetadata({
 export const revalidate = 86400; // Revalidate daily
 
 export default async function MovieDetailPage({ params }: MovieDetailPageProps) {
-  const movie = await getMovieById(params.id);
+  const resolvedParams = await params;
+  const movie = await getMovieById(resolvedParams.id);
 
   return <MovieDetailContent movie={movie} />;
 }

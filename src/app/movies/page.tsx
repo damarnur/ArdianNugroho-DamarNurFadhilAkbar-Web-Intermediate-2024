@@ -10,15 +10,14 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600; // Revalidate every hour
 
-export default async function MoviesPage({
-  searchParams,
-}: {
-  searchParams: { query?: string; page?: string };
-}) {
-  // Await searchParams explicitly to avoid accessing it synchronously
-  const awaitedParams = await searchParams;
-  const query = awaitedParams?.query || '';
-  const page = parseInt(awaitedParams?.page || '1', 10);
+type MoviesPageProps = {
+  searchParams: Promise<{ query?: string; page?: string }>;
+};
+
+export default async function MoviesPage({ searchParams }: MoviesPageProps) {
+  const resolvedParams = await searchParams;
+  const query = resolvedParams?.query || '';
+  const page = parseInt(resolvedParams?.page || '1', 10);
 
   let movies = [];
   let totalResults = 0;
