@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Explore our extensive collection of movies across various genres.',
 };
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 type MoviesPageProps = {
   searchParams: Promise<{ query?: string; page?: string }>;

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'Explore a world of cinematic adventures. Browse, discover, and dive into amazing films from every genre.',
 };
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 export default async function Home() {
   let featuredMovies: Movie[] = [];
