@@ -17,8 +17,6 @@ export default function FeaturedMoviesSection({
 
   return (
     <div className="container mx-auto px-4 pb-16">
-      <h2 className="text-3xl font-semibold mb-8 text-center">Featured Movies</h2>
-
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 justify-center">
         {featuredMovies.map((movie) => (
           <Link
@@ -33,6 +31,8 @@ export default function FeaturedMoviesSection({
                 width={240}
                 height={360}
                 className="w-full h-auto object-cover"
+                blurDataURL="/blur-image.png"
+                placeholder="blur"
               />
               <div className={`p-2 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
                 <p className="text-sm font-medium truncate">{movie.Title}</p>

@@ -91,9 +91,9 @@ const Navbar = () => {
             className={`p-2 rounded-full ${isDarkMode ? 'bg-bg-dark' : 'bg-gray-200'} transition-colors duration-300`}
           >
             {isDarkMode ? (
-              <SunIcon className="text-text-primary" />
+              <MoonIcon className="text-text-primary" />
             ) : (
-              <MoonIcon className="text-gray-800" />
+              <SunIcon className=" text-gray-800" />
             )}
           </button>
         </div>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'Explore a world of cinematic adventures. Browse, discover, and dive into amazing films from every genre.',
 };
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 export default async function Home() {
   let featuredMovies: Movie[] = [];
@@ -37,6 +37,7 @@ export default async function Home() {
         </div>
 
         {/* Featured Movies Section */}
+        <h2 className="text-3xl font-semibold mb-8 text-center">Featured Movies</h2>
         <FeaturedMoviesSection initialMovies={featuredMovies} />
 
         {/* Decorative Element */}

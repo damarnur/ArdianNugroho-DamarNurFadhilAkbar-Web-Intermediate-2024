@@ -21,6 +21,8 @@ export default function MovieDetailContent({ movie }: { movie: MovieDetail }) {
             width={300}
             height={450}
             className="w-full rounded-lg shadow-lg object-cover"
+            blurDataURL="/blur-image.png"
+            placeholder="blur"
           />
         </div>
         <div className="md:w-2/3">
