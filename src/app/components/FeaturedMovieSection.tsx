@@ -31,6 +31,8 @@ export default function FeaturedMoviesSection({
                 width={240}
                 height={360}
                 className="w-full h-auto object-cover"
+                blurDataURL="/blur-image.png"
+                placeholder="blur"
               />
               <div className={`p-2 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
                 <p className="text-sm font-medium truncate">{movie.Title}</p>

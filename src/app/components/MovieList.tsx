@@ -67,6 +67,8 @@ export default function MovieList({
                     width={300}
                     height={300}
                     className="w-full h-72 object-cover"
+                    blurDataURL="/blur-image.png"
+                    placeholder="blur"
                   />
                   <div className="p-4">
                     <h2 className="text-lg font-semibold truncate">{movie.Title}</h2>
