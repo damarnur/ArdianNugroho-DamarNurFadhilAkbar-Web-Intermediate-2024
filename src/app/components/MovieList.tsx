@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -23,6 +23,10 @@ export default function MovieList({
 
   const [page, setPage] = useState(initialPage);
   const totalPages = Math.ceil(totalResults / 10);
+
+  useEffect(() => {
+    setPage(1);
+  }, [query]);
 
   const handlePageChange = (newPage: number) => {
     const params = new URLSearchParams(searchParams);
