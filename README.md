@@ -79,7 +79,7 @@ The Movie Detail Page showcases detailed information about each movie, featuring
 ![WhatsApp Image 2024-12-09 at 21 40 16_cd2416e8](https://github.com/user-attachments/assets/d4ee2910-78f2-453d-9373-656940117a3a)
 ![WhatsApp Image 2024-12-09 at 20 53 39_ca915c26](https://github.com/user-attachments/assets/c010d6b0-1830-4955-bd9c-a38fb0df8596)
 
-
+<br/> 
 
 ### Technical Highlights
 - Built with Next.js (latest version)
@@ -88,7 +88,7 @@ The Movie Detail Page showcases detailed information about each movie, featuring
 - Axios for API interactions
 - Eslint and Prettier for code quality
 
-
+<br/> 
 
 ## 🛠 Project Setup
 ### Prerequisites
@@ -141,7 +141,8 @@ The Movie Detail Page showcases detailed information about each movie, featuring
 - Create more interactive UI components
 - Add unit and integration tests
 
-
+<br/> 
+<br/> 
 
 # 🚀 Deployment
 This project is deployed using Vercel, ensuring fast and reliable hosting with automated builds on push to the main branch.
