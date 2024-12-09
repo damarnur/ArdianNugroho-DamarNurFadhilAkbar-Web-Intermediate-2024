@@ -37,6 +37,7 @@ export default async function Home() {
         </div>
 
         {/* Featured Movies Section */}
+        <h2 className="text-3xl font-semibold mb-8 text-center">Featured Movies</h2>
         <FeaturedMoviesSection initialMovies={featuredMovies} />
 
         {/* Decorative Element */}

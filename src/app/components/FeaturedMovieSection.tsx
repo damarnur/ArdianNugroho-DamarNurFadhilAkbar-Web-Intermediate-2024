@@ -17,8 +17,6 @@ export default function FeaturedMoviesSection({
 
   return (
     <div className="container mx-auto px-4 pb-16">
-      <h2 className="text-3xl font-semibold mb-8 text-center">Featured Movies</h2>
-
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 justify-center">
         {featuredMovies.map((movie) => (
           <Link
