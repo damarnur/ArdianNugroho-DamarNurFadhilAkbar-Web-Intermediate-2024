@@ -68,7 +68,8 @@ The Movie Detail Page showcases detailed information about each movie, featuring
       - Retry page load
       - Navigate to home page
   
-![WhatsApp Image 2024-12-09 at 20 44 26_a828f9fa](https://github.com/user-attachments/assets/f83a23ca-9460-40c4-a42f-b38123794110)
+![WhatsApp Image 2024-12-09 at 20 44 39_29eb9298](https://github.com/user-attachments/assets/216a10e8-eed3-44ae-83fc-6f3f358a73cd)
+
 
    #### 🔄 Loading Experience
    - Centralized loading indicator
