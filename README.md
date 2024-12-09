@@ -80,12 +80,15 @@ The Movie Detail Page showcases detailed information about each movie, featuring
 ![WhatsApp Image 2024-12-09 at 20 53 39_ca915c26](https://github.com/user-attachments/assets/c010d6b0-1830-4955-bd9c-a38fb0df8596)
 
 
+
 ### Technical Highlights
 - Built with Next.js (latest version)
 - TypeScript for type-safe development
 - TailwindCSS for responsive styling
 - Axios for API interactions
 - Eslint and Prettier for code quality
+
+
 
 ## 🛠 Project Setup
 ### Prerequisites
@@ -137,6 +140,8 @@ The Movie Detail Page showcases detailed information about each movie, featuring
 - Implement caching mechanisms
 - Create more interactive UI components
 - Add unit and integration tests
+
+
 
 # 🚀 Deployment
 This project is deployed using Vercel, ensuring fast and reliable hosting with automated builds on push to the main branch.
